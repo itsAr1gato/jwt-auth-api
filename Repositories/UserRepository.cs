@@ -12,6 +12,8 @@ namespace Webproj.Repositories
 
         User Get(string id);
 
+        User GetByEmail(string email);
+
         User Create(User user);
 
         void Update(string id, User user);
@@ -36,6 +38,9 @@ namespace Webproj.Repositories
 
         public User Get(string id) =>
             _users.Find<User>(user => user.Id == id).FirstOrDefault();
+
+        public User GetByEmail(string email) =>
+            _users.Find<User>(user => user.Email == email).FirstOrDefault();
 
         public User Create(User user)
         {

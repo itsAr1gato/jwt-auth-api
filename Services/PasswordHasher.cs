@@ -20,7 +20,7 @@ namespace Webproj.Services
 
         public string Hash(string password)
         {
-            if (password.Length <= 6)
+            if (password.Length >= 6)
             {
                 using (var algorithm = new Rfc2898DeriveBytes(password, 
                                                               SaltSize, 

@@ -52,6 +52,7 @@ namespace Webproj.Controllers
             return BadRequest("User with given email is already exist.");
         }
 
+        // POST: /api/v1/auth/signIn
         [HttpPost("signIn")]
         public IActionResult SignIn(SignInRequest request)
         {

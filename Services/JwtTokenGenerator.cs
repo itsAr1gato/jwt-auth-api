@@ -18,9 +18,9 @@ namespace Webproj.Services
 
     public class JwtTokenGenerator : IJwtTokenGenerator
     {
-        private readonly IJwtSettings _jwtSettings;
+        private readonly JwtSettings _jwtSettings;
 
-        public JwtTokenGenerator(IOptions<IJwtSettings> jwtSettings)
+        public JwtTokenGenerator(IOptions<JwtSettings> jwtSettings)
         {
             _jwtSettings = jwtSettings.Value;
         }

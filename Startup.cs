@@ -37,8 +37,8 @@ namespace Webproj
 
             services.AddScoped<IUserRepository, UserRepository>();
 
-            services.AddTransient<IPasswordHasher, PasswordHasher>();
-            services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

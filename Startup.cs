@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Options;
 using Webproj.Helpers;
+using Webproj.Repositories;
+using Webproj.Services;
 
 namespace Webproj
 {
@@ -28,10 +30,16 @@ namespace Webproj
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-        // requires using Microsoft.Extensions.Options
             services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
-
             services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
+
+            services.Configure<JwtSettings>(Configuration.GetSection(nameof(JwtSettings)));
+
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddTransient<IPasswordHasher, PasswordHasher>();
+            services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -53,7 +61,7 @@ namespace Webproj
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
